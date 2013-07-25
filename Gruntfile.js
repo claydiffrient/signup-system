@@ -1,10 +1,12 @@
-// Generated on 2013-07-24 using generator-angular 0.3.0
+// Generated on 2013-07-25 using generator-angular 0.3.0
 'use strict';
 var LIVERELOAD_PORT = 35729;
 var lrSnippet = require('connect-livereload')({ port: LIVERELOAD_PORT });
 var mountFolder = function (connect, dir) {
   return connect.static(require('path').resolve(dir));
 };
+var path = require('path');
+var urlRewrite = require('grunt-connect-rewrite');
 
 // # Globbing
 // for performance reasons we're only matching one level down:
@@ -28,6 +30,32 @@ module.exports = function (grunt) {
 
   grunt.initConfig({
     yeoman: yeomanConfig,
+    express: {
+      options: {
+        port: 9000,
+        hostname: '*',
+      },
+      livereload: {
+        options: {
+          server: path.resolve('./server'),
+          livereload: true,
+          //serverreload: true,
+          bases: [path.resolve('./.tmp'), path.resolve(__dirname, yeomanConfig.app)]
+        }
+      },
+      test: {
+        options: {
+          server: path.resolve('./server'),
+          bases: [path.resolve('./.tmp'), path.resolve(__dirname, 'test')]
+        }
+      },
+      dist: {
+        options: {
+          server: path.resolve('./server'),
+          bases: path.resolve(__dirname, yeomanConfig.dist)
+        }
+      }
+    },
     watch: {
       coffee: {
         files: ['<%= yeoman.app %>/scripts/{,*/}*.coffee'],
@@ -88,7 +116,7 @@ module.exports = function (grunt) {
     },
     open: {
       server: {
-        url: 'http://localhost:<%= connect.options.port %>'
+        url: 'http://localhost:<%= express.options.port %>'
       }
     },
     clean: {
@@ -279,13 +307,13 @@ module.exports = function (grunt) {
 
   grunt.registerTask('server', function (target) {
     if (target === 'dist') {
-      return grunt.task.run(['build', 'open', 'connect:dist:keepalive']);
+      return grunt.task.run(['build', 'open', 'express:dist:keepalive']);
     }
 
     grunt.task.run([
       'clean:server',
       'concurrent:server',
-      'connect:livereload',
+      'express:livereload',
       'open',
       'watch'
     ]);
@@ -294,7 +322,7 @@ module.exports = function (grunt) {
   grunt.registerTask('test', [
     'clean:server',
     'concurrent:test',
-    'connect:test',
+    'express:test',
     'karma'
   ]);
 
