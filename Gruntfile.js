@@ -326,6 +326,12 @@ module.exports = function (grunt) {
     'karma'
   ]);
 
+  grunt.registerTask('travis', [
+    'clean:server',
+    'concurrent:test',
+    'express:test'
+  ]);
+
   grunt.registerTask('build', [
     'clean:dist',
     'useminPrepare',
