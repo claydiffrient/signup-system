@@ -1,9 +1,12 @@
 <div class="hero-unit">
-  <h1>'Allo, 'Allo!</h1>
-  <p>You now have</p>
-  <ul>
-      <li ng-repeat="thing in awesomeThings">{{thing}}</li>
-  </ul>
-  <p>installed.</p>
-  <h3>Enjoy coding! - Yeoman</h3>
+  <h1>Signup System</h1>
+  <p>Please login to continue</p>
+  <div ng-controller="LoginCtrl">
+      <form novalidate class="login-form" ng-submit="login(user)">
+         Email: <input type='text' ng-model='user.email' />
+         Password: <input type='password' ng-model='user.password' />
+         <button class='btn btn-primary'>Login</button>
+         <button type="button" class='btn' ng-click="reset()">Reset</button>
+      </form>
+  </div>
 </div>

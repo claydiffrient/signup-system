@@ -1,17 +1,17 @@
 'use strict';
 
-describe('Controller: MainCtrl', function () {
+describe('Controller: PublicCtrl', function () {
 
   // load the controller's module
   beforeEach(module('signupSystemApp'));
 
-  var MainCtrl,
+  var PublicCtrl,
     scope;
 
   // Initialize the controller and a mock scope
   beforeEach(inject(function ($controller, $rootScope) {
     scope = $rootScope.$new();
-    MainCtrl = $controller('MainCtrl', {
+    PublicCtrl = $controller('PublicCtrl', {
       $scope: scope
     });
   }));

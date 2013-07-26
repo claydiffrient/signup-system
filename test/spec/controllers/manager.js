@@ -1,17 +1,17 @@
 'use strict';
 
-describe('Controller: MainCtrl', function () {
+describe('Controller: ManagerCtrl', function () {
 
   // load the controller's module
   beforeEach(module('signupSystemApp'));
 
-  var MainCtrl,
+  var ManagerCtrl,
     scope;
 
   // Initialize the controller and a mock scope
   beforeEach(inject(function ($controller, $rootScope) {
     scope = $rootScope.$new();
-    MainCtrl = $controller('MainCtrl', {
+    ManagerCtrl = $controller('ManagerCtrl', {
       $scope: scope
     });
   }));
