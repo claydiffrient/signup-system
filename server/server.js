@@ -5,10 +5,9 @@
 //Require all dependencies.
 var express = require('express');
 var path = require('path');
-var passport = require('passport');
-var Authentication = require('./authentication');
 var mongoose = require('mongoose');
 var fs = require('fs');
+var MemoryStore = require('connect').session.MemoryStore;
 
 //Check to see what environment we are in and set up the mongo credentials.
 if (process.env.VCAP_SERVICES) {
@@ -44,6 +43,9 @@ var generateMongoUrl = function(obj){
  * Construct Express and set up all the configurations for it.
  */
 var app = express();
+app.sessionStore = new MemoryStore();
+app.sessionSecret = 'SocialNetSecret';
+
 
 app.use(express.logger('dev'));
 
@@ -53,22 +55,16 @@ app.use(function staticsPlaceholder(req, res, next) {
 });
 
 app.use(express.cookieParser());
-app.use(express.session({ secret: 'i am not telling you' }));
+app.use(express.session({
+   secret: app.sessionSecret,
+   key: 'express.sid',
+   store: app.sessionStore
+}));
 app.use(express.bodyParser());
-// Add csrf support
-app.use(express.csrf({value: Authentication.csrf}));
-app.use(function(req, res, next) {
-   res.cookie('XSRF-TOKEN', req.session._csrf);
-   next();
-});
 
-// setup passport authentication
-app.use(passport.initialize());
-app.use(passport.session());
 
-passport.use(Authentication.localStrategy);
-passport.serializeUser(Authentication.serializeUser);
-passport.deserializeUser(Authentication.deserializeUser);
+
+
 console.log({});
 //Setup database connections
 var dbPath = generateMongoUrl(mongo);
@@ -78,9 +74,8 @@ mongoose.connect(dbPath, function onMongooseError(err){
 
 //Setup server and database models
 var models = {
-   Authentication: Authentication,
-   Events: require('./models/Event')(mongoose),
-   Users: require('./models/User')(mongoose)
+   Event: require('./models/Event')(mongoose),
+   User: require('./models/User')(mongoose)
 };
 
 //Setup the routes.
