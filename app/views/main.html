@@ -2,11 +2,45 @@
   <h1>Signup System</h1>
   <p>Please login to continue</p>
   <div ng-controller="LoginCtrl">
-      <form novalidate class="login-form" ng-submit="login(user)">
+      <form novalidate class="login-form css-form" ng-submit="login()">
          Email: <input type='text' ng-model='user.email' />
          Password: <input type='password' ng-model='user.password' />
          <button class='btn btn-primary'>Login</button>
          <button type="button" class='btn' ng-click="reset()">Reset</button>
       </form>
+      <div>
+        <p>Don't have an account? <a ng-click="showRegistration()">Sign up now.</a></p>
+        <div ng-show="registerForm.show">
+            <form class="register-form css-form form-horizontal" novalidate ng-submit="register()">
+               <div class="control-group">
+                  <label class="control-label" for="firstName">First Name:</label>
+                  <div class="controls"> <input name="firstName" type="text" ng-model="register.firstName"></div>
+               </div>
+               <div class="control-group">
+                  <label class="control-label" for="lastName">Last Name:</label>
+                  <div class="controls"> <input name="lastName" type="text" ng-model="register.lastName"></div>
+               </div>
+               <div class="control-group">
+                  <label class="control-label" for="email">Email Address:</label>
+                  <div class="controls"> <input name="email" type="email" ng-model="register.email"></div>
+               </div>
+               <div class="control-group">
+                  <label class="control-label" for="pass">Password:</label>
+                  <div class="controls"><input name="pass" type="password" ng-model="register.password"></div>
+               </div>
+               <div class="control-group">
+                  <label class="control-label" for="pass2">Confirm Password:</label>
+                  <div class="controls"> <input name="pass2" type="password" ng-model="register.passwordConfirm"></div>
+               </div>
+               <div class="control-group">
+                  <div class="controls">
+                     <button class="btn btn-primary" type="button" ng-click="register()">Register</button>
+                     <button class="btn" type="button" ng-click="resetRegistration()">Reset</button>
+                  </div>
+               </div>
+            </form>
+        </div>
+      </div>
+
   </div>
 </div>

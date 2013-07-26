@@ -1,3 +1,16 @@
+
+a:hover {
+    cursor: pointer;
+}
+
+.css-form input.ng-invalid.ng-dirty {
+    border-color: red;
+}
+
+.css-form input.ng-valid.ng-dirty {
+    border-color: green;
+}
+
 /*body {
     background: #fafafa;
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;

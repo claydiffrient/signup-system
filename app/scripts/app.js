@@ -26,4 +26,7 @@ angular.module('signupSystemApp', ['ngResource'])
   })
   .factory('Event', ['$resource', function ($resource){
       return $resource('/api/event/:id');
+  }])
+  .factory('User', ['$resource', function($resource){
+      return $resource('/api/user/:id');
   }]);
