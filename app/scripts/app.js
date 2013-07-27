@@ -19,6 +19,14 @@ angular.module('signupSystemApp', ['ngResource'])
         templateUrl: 'views/manager.html',
         controller: 'ManagerCtrl'
       })
+      .when('/manager/addevent', {
+        templateUrl: 'views/manager/addevent.html',
+        controller: 'ManagerAddeventCtrl'
+      })
+      .when('/manager/event/:id', {
+        templateUrl: 'views/manager/event.html',
+        controller: 'ManagerEventCtrl'
+      })
       .otherwise({
         redirectTo: '/'
       });
@@ -54,10 +62,10 @@ angular.module('signupSystemApp', ['ngResource'])
                         showMessage('You don\'t have the right to do this', 'alert-error', 10000);
                         break;
                      case 500:
-                        showMessage('Server internal error: ' + errorResponse.data, 'alert-error', 10000);
+                        showMessage('Server internal error ' /*+errorResponse.data*/, 'alert-error', 10000);
                         break;
                      default:
-                        showMessage('Error ' + errorResponse.status + ': ' + errorResponse.data, 'alert-error', 10000);
+                        showMessage('Error ' + errorResponse.status + ': ' /*+ errorResponse.data*/, 'alert-error', 10000);
                   }
                   return $q.reject(errorResponse);
             });
@@ -73,7 +81,7 @@ angular.module('signupSystemApp', ['ngResource'])
    //$locationProvider.html5Mode(true);
   })
   .factory('Event', ['$resource', function ($resource){
-      return $resource('/api/event/:id', {id: "@Id"});
+      return $resource('/api/events/:id', {id: "@Id"});
   }])
   .factory('User', ['$resource', function($resource){
       return $resource('/api/user/:id', {id: "@Id"});
