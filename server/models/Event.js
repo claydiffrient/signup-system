@@ -4,7 +4,7 @@ module.exports = function(mongoose){
    var Schema = mongoose.Schema;
 
    //Configure the Slot schema
-   var Slot = new Schema({
+   var SlotSchema = new Schema({
       name: {type: String},
       time: {type: Date},
       details: {
@@ -14,9 +14,23 @@ module.exports = function(mongoose){
    });
 
    //Configure the Event schema.
-   var Event = new Schema({
-      slots: [Slot],
+   var EventSchema = new Schema({
+      slots: [SlotSchema],
       description: {type: String},
       owner: {type: Schema.Types.ObjectId, ref: 'User'}
    });
+
+   var Event = mongoose.model('Event', EventSchema);
+
+   var findByOwnerId = function (ownerId, callback) {
+      Event.find({owner: ownerId}).exec(function (error, results) {
+         if (error) throw error;
+         callback(results);
+      })
+   }
+
+   return {
+      Event: Event,
+      findByOwnerId: findByOwnerId
+   }
 }

@@ -11,6 +11,14 @@ a:hover {
     border-color: green;
 }
 
+.messagesList {
+    z-index: 1000px;
+    position: absolute;
+    left: 50%;
+    width: 50%;
+    margin-left: -25%;
+}
+
 /*body {
     background: #fafafa;
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;

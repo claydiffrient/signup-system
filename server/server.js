@@ -44,7 +44,7 @@ var generateMongoUrl = function(obj){
  */
 var app = express();
 app.sessionStore = new MemoryStore();
-app.sessionSecret = 'SocialNetSecret';
+app.sessionSecret = 'SignUpSecret';
 
 
 app.use(express.logger('dev'));

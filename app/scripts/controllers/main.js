@@ -23,7 +23,6 @@ angular.module('signupSystemApp')
             return;
          }
 
-         console.log($scope.registration);
          $http.post('/api/register', $scope.registration)
             .success(function (data, status, headers, config){
                $location.path('/manager');
@@ -32,6 +31,16 @@ angular.module('signupSystemApp')
             .error(function(data,status, headers, config){
                return false;
             });
+      }
+
+      /**
+       * Reset the registration fields when clicked.
+       */
+      $scope.resetRegistration = function() {
+         for (var key in $scope.registration)
+         {
+            $scope.registration[key] = "";
+         }
       }
 
       /**
@@ -50,12 +59,6 @@ angular.module('signupSystemApp')
             .success(function (data, status, headers, config){
                $location.path('/manager');
                return true;
-            })
-            .error(function (data, status, headers, config){
-               console.log(data);
-               console.log(status);
-               console.log(headers);
-               console.log(data);
             });
       }
   });
