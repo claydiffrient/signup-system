@@ -12,6 +12,13 @@ module.exports = function(mongoose){
       password: {type: String}
    });
 
+   var registerCallback = function(err) {
+     if (err) {
+       return console.log(err);
+     };
+     return console.log('Account was created');
+   };
+
    //Create the User model based on the UserSchema.
    var User = mongoose.model('User', UserSchema);
 

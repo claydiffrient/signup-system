@@ -36,7 +36,7 @@ module.exports = function(app, models)
     */
    app.post('/api/register', function (req, res){
       console.log('registration request');
-
+      console.log(req);
       //Store all the variables needed.
       var firstName = req.param('firstName', '');
       var lastName = req.param('lastName', '');
