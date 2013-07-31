@@ -50,7 +50,7 @@ angular.module('signupSystemApp', ['ngResource'])
          return function (promise) {
             return promise.then(function (successResponse) {
                if (successResponse.config.method.toUpperCase() != 'GET') {
-                  showMessage('Success', 'alert-success', 5000);
+                  showMessage('Success', 'alert-success', 2000);
                }
                return successResponse;
             }, function (errorResponse) {
@@ -82,6 +82,17 @@ angular.module('signupSystemApp', ['ngResource'])
   })
   .factory('Event', ['$resource', function ($resource){
       return $resource('/api/events/:id', {id: "@Id"});
+  }])
+  .factory('EventSlot', ['$resource', function ($resource){
+      return $resource('/api/events/:id/slots/:slotId', {id: "@Id", slotId: "@slotId"},
+         {
+            signup: {
+               method: 'PUT'
+            },
+            freeup: {
+               method: 'PUT'
+            }
+         });
   }])
   .factory('User', ['$resource', function($resource){
       return $resource('/api/user/:id', {id: "@Id"});
